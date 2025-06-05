@@ -66,5 +66,18 @@ class ProductManagerTest {
         assertTrue(allProducts.contains(p2));
         assertTrue(allProducts.contains(p3));
     }
+    @Test
+    void testGetProductsByPriceRangeWithinRange() {
+        ProductManager manager = new ProductManager();
+        manager.addProduct(new Product("1", "Laptop", "Electronics", 1200.0));
+        manager.addProduct(new Product("2", "Shirt", "Clothing", 40.0));
+        manager.addProduct(new Product("3", "Book", "Education", 25.0));
+        manager.addProduct(new Product("4", "Mouse", "Electronics", 30.0));
 
+        List<Product> result = manager.getProductsByPriceRange(20.0, 50.0);
+
+        assertEquals(2, result.size());
+        assertTrue(result.stream().anyMatch(p -> p.getName().equals("Shirt")));
+        assertTrue(result.stream().anyMatch(p -> p.getName().equals("Book")));
+    }
 }
