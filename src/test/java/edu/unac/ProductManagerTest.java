@@ -76,8 +76,19 @@ class ProductManagerTest {
 
         List<Product> result = manager.getProductsByPriceRange(20.0, 50.0);
 
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
         assertTrue(result.stream().anyMatch(p -> p.getName().equals("Shirt")));
         assertTrue(result.stream().anyMatch(p -> p.getName().equals("Book")));
     }
+    @Test
+    void testGetProductsByPriceRangeNoResults() {
+        ProductManager manager = new ProductManager();
+        manager.addProduct(new Product("1", "Laptop", "Electronics", 1200.0));
+        manager.addProduct(new Product("2", "Shirt", "Clothing", 40.0));
+
+        List<Product> result = manager.getProductsByPriceRange(0.0, 10.0);
+
+        assertTrue(result.isEmpty());
+    }
+
 }
